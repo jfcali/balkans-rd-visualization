@@ -1,14 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"
-  />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Western Balkans - an insight on R+I funding, agents and evolution</title>
-</head>
-<body>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      Western Balkans - an insight on R+I funding, agents and evolution
+    </title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="header__title">WESTERN BALKANS R+1</h1>
+      <h2 class="header__subtitle">
+        A brief analysis of the region's Science and Tech panorama
+      </h2>
+    </header>
+    <article class="content">
+      <section>
+        <p class="content__text">
+          The Western Balkans involves several European countries, each of them
+          with different economics, innovation policies, and distinct
+          scientific/technological production.
+        </p>
+        <p>
+          The following set of insights are taken from data describing Research
+          & Innovation activities of the region, as well as information about
+          the actors involved in said projects.
+        </p>
+      </section>
+    </article>
+    <article class="content">
+      <section>
+        <h3 class="content__title">A BIRD'S EYE VIEW</h3>
+        <p class="content__text">
+          The data frames used report projects held across six countries:
+          Serbia, Montenegro, Macedonia, Kosovo, Bosnia, and Herzegovina and
+          Albania, recording projects submitted to different grants and funds
+          provided by the European Union across ten years, from 2007 and 2017.
+        </p>
+        <div class="content__radios">
+          <label
+            ><input
+              type="radio"
+              name="gender"
+              value="male"
+              checked
+              data-countries="normalized"
+            />
+            Show as percentages</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="gender"
+              value="female"
+              data-countries="count"
+            />
+            Show all instances</label
+          >
+        </div>
+        <div class="content__graph" id="countries_graph"></div>
+      </section>
+    </article>
+    <article class="content">
+      <section>
+        <h3 class="content__title">KEY PLAYERS</h3>
+        <div class="content__graph" id="network_graph">
+          [grafica de redes de organizaciones]
+        </div>
+
+        <p class="content__text">
+          Regarding key actors, University of Belgrade takes the lead, with 108
+          participations, accounting for more than PERCENT of the total
+          projects\*. Unfortunately (?), the maximum number of stakeholders in a
+          particular project is six (CONFIRM). Likewise, more than (fraction) of
+          the total projects are made by only one participant.
+        </p>
+        <div class="content__graph" id="top_five_graph">
+          [top five]
+        </div>
+        <p>If we look at the project with the most collaborations...</p>
+      </section>
+    </article>
+    <article class="content">
+      <section>
+        <h3 class="content__title">EVOLUTION</h3>
+        <p class="content__text">
+          Over ten years, activities have increased, with a lot of variation
+          between periods, where 2014 outstands as the most varied with its
+          neighboring years (2013 and 2015).
+        </p>
+        <div class="content__graph" id="activities_graph">
+          [Gráfica de areas]
+        </div>
+        <p class="content_text">
+          In 2014, more projects labeled 'Protection and Security' and 'Cultural
+          Heritage' where presented, covering space left by 'Social and economic
+          transformations,' 'Advanced computing and Big Data' and
+          'Next-generation Internet.' This was the only year in which 'Social
+          and economic transformations' was not the leading area, showing a
+          steady climb and leading numbers the rest of the years.
+        </p>
+      </section>
+    </article>
+  </body>
 </html>

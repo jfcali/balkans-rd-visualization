@@ -1,0 +1,12 @@
+.content {
+  max-width: 40rem;
+  margin: 40px auto 100px auto;
+  &__title {
+    font-size: 20px;
+    font-weight: 500;
+    color: $dark-green;
+  }
+  &__text {
+    font-size: 16px;
+  }
+}
