@@ -1,7 +1,9 @@
 import { getAllData } from './dataLoader';
 
-import { makeGraph } from './countries';
+import makeCountriesGraph from './countries';
+import makeNetworkGraph from './network';
 
 export default function main() {
-  makeGraph();
+  makeCountriesGraph();
+  makeNetworkGraph();
 }

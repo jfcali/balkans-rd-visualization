@@ -28,7 +28,7 @@ const margin = {
   right: 30
 };
 
-export const getDomainsPerCountry = countryInfo => {
+const getDomainsPerCountry = countryInfo => {
   const countryList = Object.keys(countryInfo);
 
   const domainCountPerCountry = countryList.map(country => {
@@ -184,7 +184,7 @@ const render = (svg, series, x, y, colors, maxCount) => {
   select('.countries-x-axis').call(axisBottom(x).tickFormat(format('.2s')));
 };
 
-export const makeGraph = () => {
+export default function makeGraph() {
   getAllData().then(data => {
     const infoPerCountry = data.participations.reduce((total, current) => {
       const foundCountry = total[current.countryName];
@@ -210,4 +210,4 @@ export const makeGraph = () => {
 
     drawGraph(parsedData, maxCount);
   });
-};
+}
