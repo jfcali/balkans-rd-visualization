@@ -1,3 +1,7 @@
-export default function main(greeting) {
-  console.log(greeting);
+import { getAllData } from './dataLoader';
+
+import { makeGraph } from './countries';
+
+export default function main() {
+  makeGraph();
 }
