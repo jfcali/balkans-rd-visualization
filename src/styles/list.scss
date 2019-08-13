@@ -1,0 +1,46 @@
+.list {
+  max-width: 40rem;
+  margin: 10px auto 10px auto;
+  display: flex;
+  -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.13);
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.13);
+
+  &.hidden {
+    display: none;
+  }
+
+  &__number {
+    background: $light-green;
+    color: white;
+    font-size: 50px;
+    font-weight: 700;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      margin: 0;
+    }
+  }
+
+  &__info {
+    width: 500px;
+    padding-left: 10px;
+    &__name {
+      font-weight: 500;
+      max-width: 400px;
+    }
+    &__country {
+      font-weight: 400;
+      font-style: italic;
+    }
+  }
+
+  &__participations {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+  }
+}

@@ -69,7 +69,6 @@ const drawGraph = data => {
       .attr('fill', 'none')
       .style('stroke', 'black')
       .style('stroke', (d, i) => {
-        console.log(d);
         return 'green';
       });
 
@@ -82,7 +81,6 @@ const drawGraph = data => {
       .style('font-size', '13px')
       .style('text-anchor', 'middle')
       .text(d => {
-        console.log(d);
         return d.project;
       });
 
@@ -110,7 +108,6 @@ const drawGraph = data => {
     function mousemove(d) {
       selectAll('.line').each((c, i, nodes) => {
         const mousePos = mouse(this);
-        console.log(mousePos);
         circle.attr('cx', mousePos[0]).attr('cy', mousePos[1]);
       });
     }
@@ -133,7 +130,6 @@ const drawGraph = data => {
 
 export default function makeProjectsGraph() {
   getProjects().then(raw => {
-    console.log(raw);
     drawGraph(raw);
   });
 }
