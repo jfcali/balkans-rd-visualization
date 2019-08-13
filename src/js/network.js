@@ -7,8 +7,7 @@ import {
   drag,
   event,
   scaleOrdinal,
-  quantize,
-  interpolateSpectral,
+  scaleLinear,
   schemeCategory10
 } from 'd3';
 
@@ -17,13 +16,15 @@ import { getParticipations } from './dataLoader';
 const $graphContainer = document.getElementById('network_graph');
 
 const margin = {
-  left: 30,
+  left: 0,
   top: 20,
   bottom: 20,
-  right: 30
+  right: 0
 };
 
-const getOrganizationsPerActivity = data => {
+const getOrganizationsPerActivity = raw => {
+  const data = raw.filter(x => x.riactivityType !== 'Patent');
+
   const agg = data.reduce((total, current) => {
     const foundActivity = total[current.riactivityId];
     if (foundActivity) {
@@ -47,6 +48,10 @@ const getOrganizationsPerActivity = data => {
       return agg[act];
     });
 
+  const listOfParticipants = moreThanOneParticipantsPerActivity
+    .flat()
+    .map(x => x.affiliationName);
+
   // there HAS to be an easier way
   const links = moreThanOneParticipantsPerActivity.map(x => {
     return x.map((current, index, array) => {
@@ -60,11 +65,19 @@ const getOrganizationsPerActivity = data => {
     });
   });
 
-  const nodes = data.reduce((total, current) => {
-    if (total.find(x => x.id === current.affiliationName)) return total;
+  const dataWithoutSingles = data.filter(d => {
+    return listOfParticipants.find(x => x === d.affiliationName);
+  });
+
+  const nodes = dataWithoutSingles.reduce((total, current) => {
+    if (total.find(x => x.id === current.affiliationName)) {
+      total.find(x => x.id === current.affiliationName).value += 1;
+      return total;
+    }
     total.push({
       id: current.affiliationName,
-      country: current.countryName
+      country: current.countryName,
+      value: 1
     });
     return total;
   }, []);
@@ -76,8 +89,15 @@ const getOrganizationsPerActivity = data => {
 };
 
 const drawNetwork = data => {
-  const width = 600;
-  const height = 600;
+  const width = $graphContainer.clientWidth;
+  const height = 800;
+
+  const rScale = scaleLinear()
+    .range([4, 40])
+    .domain([
+      1,
+      data.nodes.reduce((top, curr) => (top > curr.value ? top : curr.value), 0)
+    ]);
 
   const links = data.links.map(d => Object.create(d));
   const nodes = data.nodes.map(d => Object.create(d));
@@ -112,7 +132,7 @@ const drawNetwork = data => {
 
   const simulation = forceSimulation(nodes)
     .force('link', forceLink(links).id(d => d.id))
-    .force('charge', forceManyBody())
+    .force('charge', forceManyBody().strength(-3))
     .force('center', forceCenter(width / 2, height / 2));
 
   const svg = select($graphContainer)
@@ -135,16 +155,34 @@ const drawNetwork = data => {
 
   const node = svg
     .append('g')
+    .attr('class', 'network-nodes')
     .attr('stroke', '#fff')
-    .attr('stroke-width', 1.5)
+    .attr('stroke-width', 1)
     .selectAll('circle')
     .data(nodes)
     .join('circle')
-    .attr('r', 5)
+    .attr('r', d => rScale(d.value))
     .attr('fill', color())
+    .attr('id', d => `node-${d.index}`)
+    .on('mouseover', d => {
+      svg
+        .selectAll('.network-nodes')
+        .selectAll('circle')
+        .style('opacity', 0.3);
+      svg
+        .select('.network-nodes')
+        .selectAll(`#node-${d.index}`)
+        .style('opacity', 1);
+    })
+    .on('mouseleave', () => {
+      svg
+        .selectAll('.network-nodes')
+        .selectAll('circle')
+        .style('opacity', 1);
+    })
     .call(dragEvent(simulation));
   node.append('title').text(d => `${d.id} - ${d.country}`);
-
+  setTimeout(() => {}, 1000);
   simulation.on('tick', () => {
     link
       .attr('x1', d => d.source.x)
@@ -159,7 +197,6 @@ const drawNetwork = data => {
 export default function makeGraph() {
   getParticipations().then(data => {
     const organizationsPerActivity = getOrganizationsPerActivity(data);
-    console.log(organizationsPerActivity);
     drawNetwork(organizationsPerActivity);
   });
 }
