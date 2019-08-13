@@ -49,8 +49,8 @@
           <label
             ><input
               type="radio"
-              name="gender"
-              value="male"
+              name="countries"
+              value="normalized"
               checked
               data-countries="normalized"
             />
@@ -59,8 +59,8 @@
           <label
             ><input
               type="radio"
-              name="gender"
-              value="female"
+              name="countries"
+              value="count"
               data-countries="count"
             />
             Show all instances</label
@@ -69,14 +69,12 @@
         <div class="content__graph" id="countries_graph"></div>
       </section>
     </article>
-    <article class="content">
+    <article class="content content--wide">
       <section>
-        <h3 class="content__title">KEY PLAYERS</h3>
-        <div class="content__graph" id="network_graph">
-          [grafica de redes de organizaciones]
-        </div>
+        <h3 class="content__title content__title--broad">KEY PLAYERS</h3>
+        <div class="content__graph" id="network_graph"></div>
 
-        <p class="content__text">
+        <p class="content__text content__text--broad">
           Regarding key actors, University of Belgrade takes the lead, with 108
           participations, accounting for more than PERCENT of the total
           projects\*. Unfortunately (?), the maximum number of stakeholders in a
@@ -86,27 +84,92 @@
         <div class="content__graph" id="top_five_graph">
           [top five]
         </div>
-        <p>If we look at the project with the most collaborations...</p>
+        <p class="content__text content__text--broad">
+          If we look at the project with the most collaborations...
+        </p>
       </section>
     </article>
-    <article class="content">
+    <article class="content content--wide">
       <section>
-        <h3 class="content__title">EVOLUTION</h3>
-        <p class="content__text">
+        <h3 class="content__title content__title--broad">EVOLUTION</h3>
+        <h4 class="content__subtitle content__subtitle--broad">Areas</h4>
+        <p class="content__text content__text--broad">
           Over ten years, activities have increased, with a lot of variation
           between periods, where 2014 outstands as the most varied with its
-          neighboring years (2013 and 2015).
+          neighboring years (2013 and 2015). Only 2009 and 2015 showed massive
+          downward peaks, with the latest trend being a decrease as well, shown
+          by a negative slope between 2015 and 2017.
         </p>
-        <div class="content__graph" id="activities_graph">
-          [Gráfica de areas]
+        <div
+          class="content__graph content__graph--broad"
+          id="areas_graph"
+        ></div>
+        <div class="content__button content__button--broad">
+          <button class="hidden" id="resetAreas">Show areas</button>
         </div>
-        <p class="content_text">
-          In 2014, more projects labeled 'Protection and Security' and 'Cultural
-          Heritage' where presented, covering space left by 'Social and economic
-          transformations,' 'Advanced computing and Big Data' and
-          'Next-generation Internet.' This was the only year in which 'Social
-          and economic transformations' was not the leading area, showing a
-          steady climb and leading numbers the rest of the years.
+        <p class="content_text content__text--broad">
+          In 2014, more projects labeled
+          <span
+            class="content__text__highlight"
+            data-evohighlight="Protection and Security"
+            >'Protection and Security'</span
+          >
+          and
+          <span
+            class="content__text__highlight"
+            data-evohighlight="Cultural heritage"
+            >'Cultural Heritage'</span
+          >
+          where presented, covering space left by
+          <span
+            class="content__text__highlight"
+            data-evohighlight="Social and economic transformations"
+            >'Social and economic transformations'</span
+          >,
+          <span
+            class="content__text__highlight"
+            data-evohighlight="Advanced computing and Big Data"
+            >'Advanced computing and Big Data'</span
+          >
+          and
+          <span
+            class="content__text__highlight"
+            data-evohighlight="Next-generation Internet"
+            >'Next-generation Internet'</span
+          >. This was the only year in which
+          <span
+            class="content__text__highlight"
+            data-evohighlight="Social and economic transformations"
+            >'Social and economic transformations'</span
+          >
+          was not the leading area, showing a steady climb and leading numbers
+          the rest of the years.
+        </p>
+        <p class="content__text content__text--broad">
+          2014 also marked the definite shortage of
+          <span
+            class="content__text__highlight"
+            data-evohighlight="Tools, technologies and digital solutions for health"
+            >'Tools, technologies and digital solutions for health'</span
+          >
+          projects, showing no participations on 2014 and only one in 2015 and
+          2016.
+        </p>
+        <h4 class="content__subtitle content__subtitle--broad">
+          Activity types
+        </h4>
+        <p class="content__text content__text--broad">
+          Regarding each individual activity, the following set of graphs
+          describes how each of them performed across the years.
+        </p>
+        <div
+          class="content__graph content__graph--fixed-width"
+          id="activities_graph"
+        ></div>
+        <p class="content__text content__text--broad">
+          Both 'Creative Europe' and 'H2020' activities took off in 2013,
+          whereas Culture, 'Culture' and 'CIP' have no interactions since 2014
+          and 2015 respectivley.
         </p>
       </section>
     </article>
