@@ -186,6 +186,7 @@ const render = (svg, series, x, y, colors, maxCount) => {
 
 export default function makeGraph() {
   getAllData().then(data => {
+    // console.log(data);
     const infoPerCountry = data.participations.reduce((total, current) => {
       const foundCountry = total[current.countryName];
       const activityInfo = data.activities.filter(
@@ -201,6 +202,7 @@ export default function makeGraph() {
       return total;
     }, {});
     const parsedData = getDomainsPerCountry(infoPerCountry);
+    // console.log(infoPerCountry);
 
     const maxCount = Object.keys(infoPerCountry)
       .map(country => {

@@ -1,12 +1,68 @@
 .content {
   max-width: 40rem;
   margin: 40px auto 100px auto;
+  &--wide {
+    max-width: 100%;
+  }
   &__title {
     font-size: 20px;
     font-weight: 500;
     color: $dark-green;
+    &--broad {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  &__subtitle {
+    &--broad {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
   &__text {
     font-size: 16px;
+    &__highlight {
+      text-decoration: underline;
+      &:hover {
+        color: $dark-green;
+        cursor: default;
+      }
+    }
+    &--broad {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  &__graph {
+    margin-left: auto;
+    margin-right: auto;
+    &--broad {
+      max-width: 40rem;
+    }
+    &--fixed-width {
+      max-width: 900px;
+    }
+  }
+  &__button {
+    text-align: center;
+    margin-bottom: 50px;
+    #resetAreas {
+      &.hidden {
+        display: none;
+      }
+    }
+    &--broad {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  &--broad {
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
