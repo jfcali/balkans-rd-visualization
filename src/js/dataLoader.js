@@ -7,6 +7,7 @@ export const getAreaDomainPerCountry = () =>
   csv('src/data/area_domain_per_country.csv');
 export const getAreas = () => json('src/data/areas_without_patents.json');
 export const getProjects = () => json('src/data/projects.json');
+export const getOrganizations = () => json('src/data/organizationRanking.json');
 
 export const getAllData = () =>
   new Promise((resolve, reject) =>

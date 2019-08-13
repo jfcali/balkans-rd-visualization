@@ -15,6 +15,9 @@ import { getParticipations } from './dataLoader';
 
 const $graphContainer = document.getElementById('network_graph');
 
+const $countryHighlighter = document.getElementById('country_highlight');
+const $universityHighlighter = document.getElementById('university_highlight');
+
 const margin = {
   left: 0,
   top: 20,
@@ -137,8 +140,6 @@ const drawNetwork = data => {
 
   const svg = select($graphContainer)
     .append('svg')
-    //.attr('viewBox', [0, 0, width, height])
-
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
@@ -151,7 +152,6 @@ const drawNetwork = data => {
     .selectAll('line')
     .data(links)
     .join('line');
-  //.attr("stroke-width", d => Math.sqrt(d.value));
 
   const node = svg
     .append('g')
@@ -164,7 +164,9 @@ const drawNetwork = data => {
     .attr('r', d => rScale(d.value))
     .attr('fill', color())
     .attr('id', d => `node-${d.index}`)
+    .attr('data-country', d => `${d.country}`)
     .on('mouseover', d => {
+      console.log(d);
       svg
         .selectAll('.network-nodes')
         .selectAll('circle')
@@ -181,8 +183,9 @@ const drawNetwork = data => {
         .style('opacity', 1);
     })
     .call(dragEvent(simulation));
+
   node.append('title').text(d => `${d.id} - ${d.country}`);
-  setTimeout(() => {}, 1000);
+
   simulation.on('tick', () => {
     link
       .attr('x1', d => d.source.x)
@@ -191,6 +194,40 @@ const drawNetwork = data => {
       .attr('y2', d => d.target.y);
 
     node.attr('cx', d => d.x).attr('cy', d => d.y);
+  });
+
+  $countryHighlighter.addEventListener('mouseover', () => {
+    svg
+      .selectAll('.network-nodes')
+      .selectAll('circle')
+      .style('opacity', (d, i, nodes) => {
+        if (nodes[i].dataset.country === 'Serbia') return 1;
+        return 0.1;
+      });
+  });
+
+  $countryHighlighter.addEventListener('mouseleave', () => {
+    svg
+      .selectAll('.network-nodes')
+      .selectAll('circle')
+      .style('opacity', 1);
+  });
+
+  $universityHighlighter.addEventListener('mouseover', () => {
+    svg
+      .selectAll('.network-nodes')
+      .selectAll('circle')
+      .style('opacity', (d, i, nodes) => {
+        if (nodes[i].id === 'node-6') return 1;
+        return 0.1;
+      });
+  });
+
+  $universityHighlighter.addEventListener('mouseleave', () => {
+    svg
+      .selectAll('.network-nodes')
+      .selectAll('circle')
+      .style('opacity', 1);
   });
 };
 

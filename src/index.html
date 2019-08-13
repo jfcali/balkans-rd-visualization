@@ -75,18 +75,38 @@
         <div class="content__graph" id="network_graph"></div>
 
         <p class="content__text content__text--broad">
-          Regarding key actors, University of Belgrade takes the lead, with 108
-          participations, accounting for more than PERCENT of the total
-          projects\*. Unfortunately (?), the maximum number of stakeholders in a
-          particular project is six (CONFIRM). Likewise, more than (fraction) of
-          the total projects are made by only one participant.
+          Regarding key actors,
+          <span class="content__text__highlight" id="university_highlight"
+            >University of Belgrade</span
+          >
+          takes the lead, with 110 participations, accounting for more than 8.1%
+          of total project participations. Three out of the top-5 organizations
+          are from
+          <span class="content__text__highlight" id="country_highlight"
+            >Serbia</span
+          >. Likewise, 72.8% of the total projects are made by only one
+          participant.
         </p>
-        <div class="content__graph" id="top_five_graph">
-          [top five]
+        <h4 class="content__subtitle content__subtitle--broad">
+          Top 5 Organization rank
+        </h4>
+        <h5 class="content__note content__note--broad">
+          Total participations:
+        </h5>
+        <div class="content__graph content__graph" id="top_five_graph">
+          <div class="list hidden" id="top_five_template">
+            <div class="list__number">
+              <p data-top="order"></p>
+            </div>
+            <div class="list__info">
+              <p class="list__info__name" data-top="organization"></p>
+              <p class="list__info__country" data-top="country"></p>
+            </div>
+            <div class="list__participations">
+              <p data-top="participations"></p>
+            </div>
+          </div>
         </div>
-        <p class="content__text content__text--broad">
-          If we look at the project with the most collaborations...
-        </p>
       </section>
     </article>
     <article class="content content--wide">
