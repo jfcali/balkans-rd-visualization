@@ -18,3 +18,4 @@ Alternatively you can run `npm install` followed by `npm start` to set up a loca
 - Take into account 'Patents'.
 - Refactor data loading in order to maximize performance.
 - Overall styles, design and interaction can be heavily improved
+- Responsiveness
