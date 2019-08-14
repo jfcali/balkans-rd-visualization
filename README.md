@@ -2,7 +2,7 @@
 
 The app can be viewed online [here](http://juanfelipegomez.com/balkans/).
 
-This assigment was done using [this](https://observablehq.com/@jfcali/exploration) Observable notebook as a quick-and-dirty data exploration tool, as well as a Tableau file found in assets.
+This assigment was done using [this](https://observablehq.com/@jfcali/exploration) Observable notebook as a quick-and-dirty data exploration tool, as well as a Tableau file found in `/assets`.
 
 For the notebook to display correctly, both `activities.csv` and `participations.csv` have to be uploaded to the book, using both inputs found at the top.
 
