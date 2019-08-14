@@ -27,7 +27,6 @@ const margin = {
 
 const getOrganizationsPerActivity = raw => {
   const data = raw.filter(x => x.riactivityType !== 'Patent');
-  console.log(raw);
 
   const countries = data.reduce((total, current) => {
     if (total.find(x => x.country === current.countryName)) return total;
@@ -205,6 +204,7 @@ const drawNetwork = data => {
   const legend = select($graphContainer)
     .append('svg')
     .attr('class', 'floating-legend left')
+    .style('pointer-events', 'none')
     .attr('width', 150)
     .attr('height', 100)
     .append('g');

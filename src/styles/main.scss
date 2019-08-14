@@ -4,6 +4,7 @@
 @import 'content.scss';
 @import 'list.scss';
 @import 'floating-legends.scss';
+@import 'loading.scss';
 
 body {
   padding: 0;
@@ -11,6 +12,9 @@ body {
   color: $dark;
   background: white;
   font-family: Montserrat, Helvetica, Arial, sans-serif;
+  &.no-overflow {
+    overflow: hidden;
+  }
 }
 * {
   box-sizing: border-box;

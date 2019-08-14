@@ -1,12 +1,10 @@
-import { select, scaleLinear, scaleBand } from 'd3';
-
 import { getOrganizations } from './dataLoader';
 
 const $graphContainer = document.getElementById('top_five_graph');
 
 const $template = document.getElementById('top_five_template');
 
-const getTopFive = raw => {
+const getTopFive = (raw, amount) => {
   const organizations = Object.keys(raw);
   const organizationList = organizations
     .map(org => {
@@ -16,22 +14,13 @@ const getTopFive = raw => {
       };
     })
     .sort((a, b) => b.participations - a.participations);
-  const totalParticipations = organizationList.reduce(
-    (total, curr) => total + curr.participations,
-    0
-  );
-  const totalOrganizations = organizationList.length;
-  const loners = organizationList.filter(curr => curr.participations === 1, 0);
 
-  const totalLoners = loners.length;
-
-  const topFive = organizationList.slice(0, 5);
+  const topFive = organizationList.slice(0, amount);
 
   return topFive;
 };
 
 const drawGraph = topFive => {
-  console.log(topFive);
   topFive.forEach((org, i) => {
     const node = $template.cloneNode('true');
     const $elements = Array.from(node.querySelectorAll('[data-top]'));
@@ -57,6 +46,6 @@ const drawGraph = topFive => {
 
 export default function makeOrganizationsGraph() {
   getOrganizations().then(raw => {
-    drawGraph(getTopFive(raw));
+    drawGraph(getTopFive(raw, 5));
   });
 }

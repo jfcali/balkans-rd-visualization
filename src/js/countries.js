@@ -51,6 +51,80 @@ const getDomainsPerCountry = countryInfo => {
   return domainCountPerCountry;
 };
 
+const renderNormalized = (svg, series, x, y, colors) => {
+  x.domain([0, 1]);
+  const group = svg.selectAll('.stack').data(series);
+
+  group.exit().remove();
+
+  group
+    .enter()
+    .append('g')
+    .attr('class', 'stack')
+    .attr('fill', d => colors(d.key));
+
+  const bars = svg
+    .selectAll('.stack')
+    .selectAll('rect')
+    .data(d => d);
+  bars.exit().remove();
+
+  bars
+    .enter()
+    .append('rect')
+    .merge(bars)
+    .transition()
+    .attr('width', d => x(d[1]) - x(d[0]))
+    .attr('x', d => {
+      return x(d[0]);
+    })
+    .attr('y', (d, i) => y(d.data.country))
+    .attr('height', y.bandwidth());
+
+  select('.countries-x-axis').call(axisBottom(x).tickFormat(format('.0%')));
+};
+
+const render = (svg, series, x, y, colors, maxCount) => {
+  x.domain([0, maxCount]);
+  const group = svg.selectAll('.stack').data(series);
+
+  group
+    .enter()
+    .selectAll('.stack')
+    .append('title')
+    .text(d => {
+      return 's';
+    });
+
+  group.exit().remove();
+
+  group
+    .enter()
+    .append('g')
+    .attr('class', 'stack')
+    .attr('fill', d => colors(d.key));
+
+  const bars = svg
+    .selectAll('.stack')
+    .selectAll('rect')
+    .data(d => d);
+  bars.exit().remove();
+
+  bars
+    .enter()
+    .append('rect')
+    .merge(bars)
+    .transition()
+    .attr('width', d => x(d[1]) - x(d[0]))
+    .attr('x', d => {
+      return x(d[0]);
+    })
+    .attr('y', d => y(d.data.country))
+    .attr('height', y.bandwidth());
+
+  select('.countries-x-axis').call(axisBottom(x).tickFormat(format('.2s')));
+};
+
 const drawGraph = (data, maxCount) => {
   const svg = select($graphContainer)
     .append('svg')
@@ -142,106 +216,33 @@ const drawGraph = (data, maxCount) => {
   );
 };
 
-const renderNormalized = (svg, series, x, y, colors) => {
-  x.domain([0, 1]);
-  const group = svg.selectAll('.stack').data(series);
-
-  group.exit().remove();
-
-  group
-    .enter()
-    .append('g')
-    .attr('class', 'stack')
-    .attr('fill', d => colors(d.key));
-
-  const bars = svg
-    .selectAll('.stack')
-    .selectAll('rect')
-    .data(d => d);
-  bars.exit().remove();
-
-  bars
-    .enter()
-    .append('rect')
-    .merge(bars)
-    .transition()
-    .attr('width', d => x(d[1]) - x(d[0]))
-    .attr('x', d => {
-      return x(d[0]);
-    })
-    .attr('y', (d, i) => y(d.data.country))
-    .attr('height', y.bandwidth());
-
-  select('.countries-x-axis').call(axisBottom(x).tickFormat(format('.0%')));
-};
-
-const render = (svg, series, x, y, colors, maxCount) => {
-  x.domain([0, maxCount]);
-  const group = svg.selectAll('.stack').data(series);
-
-  group
-    .enter()
-    .selectAll('.stack')
-    .append('title')
-    .text(d => {
-      return 's';
-    });
-
-  group.exit().remove();
-
-  group
-    .enter()
-    .append('g')
-    .attr('class', 'stack')
-    .attr('fill', d => colors(d.key));
-
-  const bars = svg
-    .selectAll('.stack')
-    .selectAll('rect')
-    .data(d => d);
-  bars.exit().remove();
-
-  bars
-    .enter()
-    .append('rect')
-    .merge(bars)
-    .transition()
-    .attr('width', d => x(d[1]) - x(d[0]))
-    .attr('x', d => {
-      return x(d[0]);
-    })
-    .attr('y', (d, i) => y(d.data.country))
-    .attr('height', y.bandwidth());
-
-  select('.countries-x-axis').call(axisBottom(x).tickFormat(format('.2s')));
-};
-
 export default function makeGraph() {
-  getAllData().then(data => {
-    // console.log(data);
-    const infoPerCountry = data.participations.reduce((total, current) => {
-      const foundCountry = total[current.countryName];
-      const activityInfo = data.activities.filter(
-        x => x.riactivityId === current.riactivityId
-      );
-      if (foundCountry) {
+  return new Promise(resolve => {
+    getAllData().then(data => {
+      const infoPerCountry = data.participations.reduce((total, current) => {
+        const foundCountry = total[current.countryName];
+        const activityInfo = data.activities.filter(
+          x => x.riactivityId === current.riactivityId
+        );
+        if (foundCountry) {
+          total[current.countryName].push({ ...current, activityInfo });
+          return total;
+        }
+        total[current.countryName] = [];
         total[current.countryName].push({ ...current, activityInfo });
+
         return total;
-      }
-      total[current.countryName] = [];
-      total[current.countryName].push({ ...current, activityInfo });
+      }, {});
+      const parsedData = getDomainsPerCountry(infoPerCountry);
 
-      return total;
-    }, {});
-    const parsedData = getDomainsPerCountry(infoPerCountry);
-    // console.log(infoPerCountry);
+      const maxCount = Object.keys(infoPerCountry)
+        .map(country => {
+          return infoPerCountry[country].length;
+        })
+        .reduce((max, current) => (current > max ? current : max));
 
-    const maxCount = Object.keys(infoPerCountry)
-      .map(country => {
-        return infoPerCountry[country].length;
-      })
-      .reduce((max, current) => (current > max ? current : max));
-
-    drawGraph(parsedData, maxCount);
+      drawGraph(parsedData, maxCount);
+      resolve(true);
+    });
   });
 }

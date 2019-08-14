@@ -152,14 +152,11 @@ const drawSingleLine = ({
     .y0(y(0))
     .y1(d => y(d.value));
 
-  svg
-    .select('.evolution-y-axis') // change the y axis
-    .call(axisLeft(y));
+  svg.select('.evolution-y-axis').call(axisLeft(y));
   svg
     .select('.line')
     .attr('style', 'opacity:1')
     .transition()
-    // .attr('fill', 'none')
     .attr('fill', () => {
       return colors(key);
     })
@@ -290,95 +287,6 @@ const drawGraph = data => {
     });
     $resetGraph.classList.add('hidden');
   });
-
-  const lines = svg.append('g').attr('class', 'lines');
-
-  // lines
-  //   .selectAll('.line-group')
-  //   .data(areaData)
-  //   .enter()
-  //   .append('g')
-  //   .attr('class', 'line-group')
-  //   .append('path')
-  //   .attr('class', 'line')
-  //   .attr('d', d => makeLine(d.values))
-  //   .attr('fill', 'none')
-  //   .style('stroke', 'black')
-  //   .style('stroke', (d, i) => {
-  //     return colors(d.name);
-  //   });
-  // //.style('opacity', lineOpacity);
-
-  // const smallWidth = 200;
-  // const smallHeight = 200;
-
-  // areaData.forEach((area, index) => {
-  //   console.log(area);
-
-  //   const svg = select('#areas_graph2')
-  //     .append('svg')
-  //     .attr('width', smallWidth)
-  //     .attr('height', smallHeight)
-  //     .append('g');
-  //   // .attr('transform', `translate(${margin.left},${margin.top})`);
-
-  //   const x = scaleTime()
-  //     .domain(extent(area.values, d => d.year))
-  //     .range([20, smallWidth]);
-
-  //   const y = scaleLinear()
-  //     .domain([
-  //       0,
-  //       area.values.reduce(
-  //         (max, current) => (current.value > max ? current.value : max),
-  //         0
-  //       )
-  //     ])
-  //     .range([smallHeight - 20, 0]);
-
-  //   const makeLine = line()
-  //     .x(d => x(d.year))
-  //     .y(d => y(d.value));
-  //   // Add the valueline path.
-  //   svg
-  //     .append('path')
-  //     .data([area.values])
-  //     .attr('class', 'line')
-  //     .attr('d', makeLine)
-  //     .attr('fill', 'none')
-  //     .style('stroke', 'black')
-  //     .style('stroke', (d, i) => {
-  //       console.log(d);
-  //       return colors(d.name);
-  //     });
-
-  //   svg
-  //     .append('g')
-  //     .attr('transform', `translate(0,${smallHeight - 20})`)
-  //     // .attr('class', 'countries-x-axis')
-  //     .call(axisBottom(x).tickFormat(format('.4')));
-  //   svg
-  //     .append('g')
-  //     .attr('transform', `translate(${20},0)`)
-  //     // .attr('class', 'countries-y-axis')
-  //     .call(axisLeft(y));
-  //   // lines
-  //   //   .selectAll('.line-g')
-  //   //   .datum(area.values)
-  //   //   .append('g')
-  //   //   .attr('class', 'line-g')
-  //   //   .append('path')
-  //   //   .attr('d', d => {
-  //   //     console.log(d);
-  //   //     return makeLine(d.values);
-  //   //   })
-  //   //   .attr('fill', 'none')
-  //   //   .style('stroke', 'black')
-  //   //   .style('stroke', (d, i) => {
-  //   //     console.log(d);
-  //   //     return colors(d.name);
-  //   //   });
-  // });
 };
 
 export default function makeEvolutionGraph() {
