@@ -6,10 +6,7 @@ import {
   axisBottom,
   format,
   extent,
-  line,
-  mouse,
-  scaleOrdinal,
-  selectAll
+  line
 } from 'd3';
 
 import { getProjects } from './dataLoader';
@@ -83,48 +80,6 @@ const drawGraph = data => {
       .text(d => {
         return d.project;
       });
-
-    const circle = svg
-      .append('circle')
-      .attr('r', 5)
-      .attr('opacity', 0)
-      .style('pointer-events', 'none');
-
-    const caption = svg
-      .append('text')
-      .attr('class', 'caption')
-      .attr('text-anchor', 'middle')
-      .style('pointer-events', 'none')
-      .attr('dy', -8);
-
-    const curYear = svg
-      .append('text')
-      .attr('class', 'year')
-      .attr('text-anchor', 'middle')
-      .style('pointer-events', 'none')
-      .attr('dy', 13)
-      .attr('y', height);
-
-    function mousemove(d) {
-      selectAll('.line').each((c, i, nodes) => {
-        const mousePos = mouse(this);
-        circle.attr('cx', mousePos[0]).attr('cy', mousePos[1]);
-      });
-    }
-    function mouseout() {
-      circle.attr('opacity', 0);
-      caption.text('');
-      curYear.text('');
-    }
-    function mouseover(d) {
-      circle.attr('opacity', 1.0);
-      mousemove.call(this);
-    }
-
-    svg
-      .on('mouseover', mouseover)
-      .on('mousemove', mousemove)
-      .on('mouseout', mouseout);
   });
 };
 

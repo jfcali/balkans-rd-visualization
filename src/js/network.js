@@ -27,6 +27,12 @@ const margin = {
 
 const getOrganizationsPerActivity = raw => {
   const data = raw.filter(x => x.riactivityType !== 'Patent');
+  console.log(raw);
+
+  const countries = data.reduce((total, current) => {
+    if (total.find(x => x.country === current.countryName)) return total;
+    return [...total, { country: current.countryName }];
+  }, []);
 
   const agg = data.reduce((total, current) => {
     const foundActivity = total[current.riactivityId];
@@ -87,7 +93,8 @@ const getOrganizationsPerActivity = raw => {
 
   return {
     links: links.flat(2).filter(x => x.source !== x.target),
-    nodes
+    nodes,
+    countries
   };
 };
 
@@ -166,7 +173,6 @@ const drawNetwork = data => {
     .attr('id', d => `node-${d.index}`)
     .attr('data-country', d => `${d.country}`)
     .on('mouseover', d => {
-      console.log(d);
       svg
         .selectAll('.network-nodes')
         .selectAll('circle')
@@ -195,6 +201,40 @@ const drawNetwork = data => {
 
     node.attr('cx', d => d.x).attr('cy', d => d.y);
   });
+
+  const legend = select($graphContainer)
+    .append('svg')
+    .attr('class', 'floating-legend left')
+    .attr('width', 150)
+    .attr('height', 100)
+    .append('g');
+
+  const items = legend
+    .append('g')
+    .selectAll('.legend-item')
+    .data(data.countries);
+
+  items
+    .enter()
+    .append('rect')
+    .attr('width', 10)
+    .attr('height', 10)
+    .attr('x', '0')
+    .attr('y', (d, i) => {
+      return i * 18;
+    })
+    .attr('fill', color());
+
+  items
+    .enter()
+    .append('text')
+    .attr('dy', '9px')
+    .attr('x', 15)
+    .attr('y', (d, i) => {
+      return i * 18;
+    })
+    .attr('font-size', '10px')
+    .text(d => d.country);
 
   $countryHighlighter.addEventListener('mouseover', () => {
     svg

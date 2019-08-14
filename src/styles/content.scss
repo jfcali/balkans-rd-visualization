@@ -14,8 +14,16 @@
       margin-right: auto;
     }
   }
-  &__subtitle {
+  &__radios {
     &--broad {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  &__subtitle {
+    margin-top: 40px;
+    mar &--broad {
       max-width: 40rem;
       margin-left: auto;
       margin-right: auto;
@@ -25,6 +33,7 @@
     font-style: italic;
     font-weight: 100;
     margin-bottom: 0px;
+    margin-top: 0px;
     text-align: right;
     &--broad {
       max-width: 40rem;
@@ -50,6 +59,7 @@
   &__graph {
     margin-left: auto;
     margin-right: auto;
+    position: relative;
     &--broad {
       max-width: 40rem;
     }

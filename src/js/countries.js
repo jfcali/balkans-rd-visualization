@@ -99,6 +99,38 @@ const drawGraph = (data, maxCount) => {
 
   renderNormalized(svg, series, x, y, colors);
 
+  const legend = select($graphContainer)
+    .append('svg')
+    .attr('class', 'floating-legend')
+    .attr('width', '200')
+    .attr('height', '400');
+
+  const items = legend
+    .append('g')
+    .selectAll('.legend-item')
+    .data(series);
+
+  items
+    .enter()
+    .append('rect')
+    .attr('width', 10)
+    .attr('height', 10)
+    .attr('x', '0')
+    .attr('y', (d, i) => {
+      return i * 18;
+    })
+    .attr('fill', d => colors(d.key));
+
+  items
+    .enter()
+    .append('text')
+    .attr('dy', '9px')
+    .attr('x', 15)
+    .attr('y', (d, i) => {
+      return i * 18;
+    })
+    .attr('font-size', '10px')
+    .text(d => d.key);
   $buttons.forEach(button =>
     button.addEventListener('change', e => {
       if (e.target.dataset.countries === 'normalized') {

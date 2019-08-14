@@ -36,16 +36,16 @@
         </p>
       </section>
     </article>
-    <article class="content">
+    <article class="content content--wide">
       <section>
-        <h3 class="content__title">A BIRD'S EYE VIEW</h3>
-        <p class="content__text">
+        <h3 class="content__title content__title--broad">A BIRD'S EYE VIEW</h3>
+        <p class="content__text content__text--broad">
           The data frames used report projects held across six countries:
-          Serbia, Montenegro, Macedonia, Kosovo, Bosnia, and Herzegovina and
+          Serbia, Montenegro, Macedonia, Kosovo, Bosnia and Herzegovina and
           Albania, recording projects submitted to different grants and funds
           provided by the European Union across ten years, from 2007 and 2017.
         </p>
-        <div class="content__radios">
+        <div class="content__radios content__radios--broad">
           <label
             ><input
               type="radio"
@@ -66,7 +66,11 @@
             Show all instances</label
           >
         </div>
-        <div class="content__graph" id="countries_graph"></div>
+        <div
+          class="content__graph content__graph--broad"
+          id="countries_graph"
+        ></div>
+        <div class="content__legend" id="countries_legend"></div>
       </section>
     </article>
     <article class="content content--wide">
@@ -85,7 +89,7 @@
           <span class="content__text__highlight" id="country_highlight"
             >Serbia</span
           >. Likewise, 72.8% of the total projects are made by only one
-          participant.
+          participant, which where all excluded from the network graph.
         </p>
         <h4 class="content__subtitle content__subtitle--broad">
           Top 5 Organization rank

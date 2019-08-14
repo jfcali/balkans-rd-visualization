@@ -1,0 +1,9 @@
+.floating-legend {
+  position: absolute;
+  right: -238px;
+  top: 50px;
+  &.left {
+    right: auto;
+    left: 20rem;
+  }
+}
