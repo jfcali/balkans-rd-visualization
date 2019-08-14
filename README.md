@@ -17,3 +17,4 @@ Alternatively you can run `npm install` followed by `npm start` to set up a loca
 - More data cleaning. It seemed some organizations could be repeated or could be categorized into one.
 - Take into account 'Patents'.
 - Refactor data loading in order to maximize performance.
+- Overall styles, design and interaction can be heavily improved
